@@ -1,0 +1,32 @@
+on: push
+
+jobs:
+  go-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 'stable'
+      - name: Check Go formatting
+        working-directory: ./App
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "$unformatted"
+            exit 1
+          fi
+          echo "✅ Все Go файлы правильно отформатированы"
+
+  go-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 'stable'
+      - name: Build Go project
+        working-directory: ./App
+        run: |
+          go build ./...
+          echo "✅ Go проект успешно собирается"

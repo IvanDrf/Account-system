@@ -9,7 +9,7 @@ jobs:
         with:
           go-version: 'stable'
       - name: Check Go formatting
-        working-directory: ./go
+        working-directory: ./App
         run: |
           unformatted=$(gofmt -l .)
           if [ -n "$unformatted" ]; then
@@ -26,7 +26,7 @@ jobs:
         with:
           go-version: 'stable'
       - name: Build Go project
-        working-directory: ./go
+        working-directory: ./App
         run: |
           go build ./...
           echo "✅ Go проект успешно собирается"

@@ -6,7 +6,6 @@ import (
 )
 
 func Register(database map[string]string) error {
-
 	fmt.Print("name: ")
 
 	name := ""

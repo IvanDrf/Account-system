@@ -19,7 +19,6 @@ func main() {
 	}
 
 	for {
-
 		WriteMenu()
 
 		choice := 0
@@ -49,7 +48,6 @@ func main() {
 			}
 
 		case 4:
-
 			if err := storage.UpdateDatabase(fileName, database); err != nil {
 				fmt.Println(err)
 			}
@@ -59,6 +57,7 @@ func main() {
 		default:
 			fmt.Println("There are only three options")
 		}
+
 		fmt.Println()
 	}
 }

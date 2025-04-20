@@ -16,6 +16,7 @@ func Register(database map[string]string) error {
 	}
 
 	fmt.Print("password: ")
+
 	password := ""
 	fmt.Scan(&password)
 
@@ -35,6 +36,7 @@ func LogIn(database map[string]string) error {
 	}
 
 	fmt.Print("password: ")
+
 	password := ""
 	fmt.Scan(&password)
 
@@ -73,8 +75,6 @@ func Delete(database map[string]string) error {
 	if sure == "y" {
 		delete(database, name)
 		fmt.Println("Success")
-
-		return nil
 	}
 
 	return nil

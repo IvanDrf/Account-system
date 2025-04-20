@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	account "github.com/IvanDrf/Account-system/App/Account"
 	storage "github.com/IvanDrf/Account-system/App/Storage"
 )
 
@@ -26,49 +27,30 @@ func main() {
 
 		switch choice {
 		case 1:
-			fmt.Print("name: ")
-
-			name := ""
-			fmt.Scan(&name)
-
-			if _, alreadyIn := database[name]; alreadyIn {
-				fmt.Println("User with that name has already been registered")
+			if err := account.Register(database); err != nil {
+				fmt.Println(err)
 				break
 			}
-
-			fmt.Print("password: ")
-			password := ""
-			fmt.Scan(&password)
-
-			database[name] = password
 
 			fmt.Println("Success")
 
 		case 2:
-			fmt.Print("name: ")
-
-			name := ""
-			fmt.Scan(&name)
-
-			if _, alreadyIn := database[name]; !alreadyIn {
-				fmt.Println("There is no user with that name")
-				break
-			}
-
-			fmt.Print("password: ")
-			password := ""
-			fmt.Scan(&password)
-
-			if password != database[name] {
-				fmt.Println("password is incorrect")
+			if err := account.LogIn(database); err != nil {
+				fmt.Println(err)
 				break
 			}
 
 			fmt.Println("Success")
 
 		case 3:
-			err := storage.UpdateDatabase(fileName, database)
+			err := account.Delete(database)
 			if err != nil {
+				fmt.Println(err)
+			}
+
+		case 4:
+
+			if err := storage.UpdateDatabase(fileName, database); err != nil {
 				fmt.Println(err)
 			}
 
@@ -84,7 +66,8 @@ func main() {
 func WriteMenu() {
 	fmt.Println("1. Register")
 	fmt.Println("2. Log in")
-	fmt.Println("3. Exit")
+	fmt.Println("3. Delete account")
+	fmt.Println("4. Exit")
 
 	fmt.Print("choice: ")
 }
